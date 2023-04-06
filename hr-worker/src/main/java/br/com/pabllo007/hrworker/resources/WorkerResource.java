@@ -1,11 +1,11 @@
 package br.com.pabllo007.hrworker.resources;
 
-import br.com.pabllo007.hrworker.entities.Worker;
-import br.com.pabllo007.hrworker.repositories.WorkerRepository;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import br.com.pabllo007.hrworker.entities.Worker;
+import br.com.pabllo007.hrworker.repositories.WorkerRepository;
 
 @RestController
 @RequestMapping(value = "/workers")
@@ -24,8 +25,19 @@ public class WorkerResource {
 	@Autowired
 	private Environment env;
 	
+	@Value("${test.config}")
+	private String testeConfig;
+	
     @Autowired
     private WorkerRepository repository;
+
+    @GetMapping(value = "/configs")
+    public ResponseEntity<Void> getConfigs() {
+        
+    	logger.info("CONFIG = " + testeConfig);
+    	
+        return ResponseEntity.noContent().build();
+    }
 
     @GetMapping
     public ResponseEntity<List<Worker>> findAll() {
