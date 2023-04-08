@@ -12,7 +12,7 @@ public class AppConfig {
 
 	@Value("${jwt.secret}")
 	private String jwtSecret;
-	
+
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -24,7 +24,7 @@ public class AppConfig {
 		tokenConverter.setSigningKey(jwtSecret);
 		return tokenConverter;
 	}
-	
+
 	@Bean
 	public JwtTokenStore tokenStore() {
 		return new JwtTokenStore(accessTokenConverter());
